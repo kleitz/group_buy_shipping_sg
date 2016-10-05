@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  mongo:
+    restart: always
+    image: mongo
+    volumes:
+      - mongodata:/data/db
+    command: --smallfiles
+    networks:
+      app_net:
+        ipv4_address: 192.168.125.100
+
+  myapp:
+    restart: always
+    build: .
+    image: group_buy_shipping_sg
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      app_net:
+        ipv4_address: 192.168.125.110
+
+volumes:
+  mongodata:
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.125.0/24
+          gateway: 192.168.125.1

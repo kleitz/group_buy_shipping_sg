@@ -1,0 +1,3 @@
+deb http://mirror.nus.edu.sg/Debian jessie main
+deb http://mirror.nus.edu.sg/Debian jessie-updates main
+deb http://security.debian.org jessie/updates main
